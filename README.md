@@ -33,11 +33,27 @@ bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 ```
 
-### Generate a contig to bin bin 
+### Generate a contig to bin file
 *** 
-```for i in bin_directory/*.fa; do 
+
+```
+for i in bin_directory/*.fa; do 
       bid=$(basename ${i%.fa});
       cat $i | grep ^'>' | cut -f1 -d' ' | tr -d '>' | sed 's/$/\t'$bid'/' >> output_name.map;
-  done```
+done
+```
 
+### Filter contigs by length
+*** 
+```
+awk -v RS='>[^\n]+\n' 'length() >= 2000 {printf "%s", prt $0} {prt = RT}' contig_file.fasta > output.fa
+```
+
+### Rename file extensions
+***
+```
+for f in *.fasta; do
+    mv -- "$f" "${f%.fasta}.fa"
+done
+```
 
