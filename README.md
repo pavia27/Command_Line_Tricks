@@ -21,8 +21,16 @@
 ***
 `awk 'BEGIN{FS="#"}{if(/^>/){print ">"$1}else{print $0}}' prodiga_output.faa > clean_prodiga_output.faa`
 
-### MOD to bash profile which allows you to search history (paste in .bash_profile_ 
+### MOD to bash profile which allows you to search history (paste in .bash_profile
 *** 
 `bind '"\e[A": history-search-backward'`
 
 `bind '"\e[B": history-search-forward'`
+
+### Generate a contig to bin bin 
+*** 
+`for i in bin_directory/*.fa; do 
+  bid=$(basename ${i%.fa}); cat $i | grep ^'>' | cut -f1 -d' ' | tr -d '>' | sed 's/$/\t'$bid'/' >> output_name.map; 
+  done`
+
+
