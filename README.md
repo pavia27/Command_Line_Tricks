@@ -29,9 +29,9 @@
 
 ### Generate a contig to bin bin 
 *** 
-`for i in bin_directory/*.fa; do <br />
+```for i in bin_directory/*.fa; do <br />
   bid=$(basename ${i%.fa}); <br />
   cat $i | grep ^'>' | cut -f1 -d' ' | tr -d '>' | sed 's/$/\t'$bid'/' >> output_name.map; <br />
-  done`
+  done```
 
 
